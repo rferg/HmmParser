@@ -8,15 +8,13 @@ namespace Common
     /// Exposes method for tagging words in a name with name-part tags based on provided reference arrays.
     /// This converts array of words into array of <see cref="int"/> that can be passed to HMM.
     /// For example, 'Mr.' might be tagged as <see cref="Tag.Prefix"/>.
-    /// Implements <see cref="IDisposable"/>.
     /// </summary>
-    public class Tagger : IDisposable
+    public class Tagger
     {
         private string[] Prefixes { get; set; }
         private string[] GivenNames { get; set; }
         private string[] Surnames { get; set; }
         private string[] Suffixes { get; set; }
-        private bool disposed = false;
 
         /// <summary>
         /// Creates an instance of <see cref="Tagger"/> given paths to reference files.
@@ -53,38 +51,6 @@ namespace Common
             Suffixes = suffixes;
         }
 
-        ~Tagger()
-        {
-            Dispose(false);
-        }
-
-        /// <summary>
-        /// Disposes the <see cref="Tagger"/> instance.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                Prefixes = new string[0];
-                GivenNames = new string[0];
-                Surnames = new string[0];
-                Suffixes = new string[0];
-            }
-            disposed = true;
-        }
-
         /// <summary>
         /// Creates array of <see cref="Tag"/> corresponding to words in input array.
         /// Input should already be split, trimmed, cased, and preprocessed.
@@ -93,30 +59,7 @@ namespace Common
         /// <returns><see cref="Tag"/> array</returns>
         public Tag[] TagInput(string[] input)
         {
-            return input.Select(str =>
-            {
-                if (Prefixes.Contains(str))
-                {
-                    return Tag.Prefix;
-                }
-
-                if (Suffixes.Contains(str))
-                {
-                    return Tag.Suffix;
-                }
-
-                if (Surnames.Contains(str))
-                {
-                    return Tag.Surname;
-                }
-
-                if (GivenNames.Contains(str))
-                {
-                    return Tag.GivenName;
-                }
-
-                return Tag.Unknown;
-            }).ToArray();
+            return input.Select(str => TagWord(str)).ToArray();
         }
 
         /// <summary>
@@ -129,32 +72,33 @@ namespace Common
         /// <returns><see cref="int"/> array</returns>
         public int[] TagInputAsInt(string[] input)
         {
-            return input.Select(str =>
-            {
-                if (Prefixes.Contains(str))
-                {
-                    return (int)Tag.Prefix;
-                }
-
-                if (Suffixes.Contains(str))
-                {
-                    return (int)Tag.Suffix;
-                }
-
-                if (Surnames.Contains(str))
-                {
-                    return (int)Tag.Surname;
-                }
-
-                if (GivenNames.Contains(str))
-                {
-                    return (int)Tag.GivenName;
-                }
-
-                return (int)Tag.Unknown;
-            }).ToArray();
+            return input.Select(str => (int)TagWord(str)).ToArray();
         }
 
+        private Tag TagWord(string word)
+        {
+            if (Prefixes.Contains(word))
+            {
+                return Tag.Prefix;
+            }
+
+            if (Suffixes.Contains(word))
+            {
+                return Tag.Suffix;
+            }
+
+            if (Surnames.Contains(word))
+            {
+                return Tag.Surname;
+            }
+
+            if (GivenNames.Contains(word))
+            {
+                return Tag.GivenName;
+            }
+
+            return Tag.Unknown;
+        }
 
         private string[] ReadSingleLineCSV(string path)
         {

@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Label.cs" />
+    <Compile Include="Name.cs" />
     <Compile Include="Preprocessing.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="Tagger.cs" />
