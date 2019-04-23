@@ -1,13 +1,7 @@
-﻿using Accord.IO;
-using Accord.Statistics.Models.Markov;
+﻿using Accord.Statistics.Models.Markov;
 using Common;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HmmNameParser
 {
@@ -17,28 +11,20 @@ namespace HmmNameParser
     public class Parser
     {
         private HiddenMarkovModel HMM { get; set; }
-        private Tagger Tagger { get; set; }
+        private ITagger Tagger { get; set; }
         private TextInfo TextInfo = new CultureInfo("en-US", false).TextInfo;
 
         /// <summary>
         /// Initializes <see cref="Parser"/> with default path to serialized <see cref="HiddenMarkovModel"/>.
         /// </summary>
-        public Parser()
-        {
-            HMM = LoadHMM(Config.DEFAULT_MODEL_PATH);
-            Tagger = new Tagger(
-                Config.PREFIX_REF, Config.GIVEN_NAME_REF, Config.SURNAME_REF, Config.SUFFIX_REF);
+        public Parser() : this(new Tagger(), new ModelLoader())
+        {            
         }
 
-        /// <summary>
-        /// Initializes <see cref="Parser"/> with given path to serialized <see cref="HiddenMarkovModel"/>.
-        /// </summary>
-        /// <param name="modelPath">The path to serialized <see cref="HiddenMarkovModel"/></param>
-        public Parser(string modelPath)
+        internal Parser(ITagger tagger, IModelLoader modelLoader)
         {
-            HMM = LoadHMM(modelPath);
-            Tagger = new Tagger(
-                Config.PREFIX_REF, Config.GIVEN_NAME_REF, Config.SURNAME_REF, Config.SUFFIX_REF);
+            Tagger = tagger;
+            HMM = modelLoader.LoadHMM();
         }
 
         /// <summary>
@@ -95,15 +81,6 @@ namespace HmmNameParser
         private string ToTitleCase(string word)
         {
             return TextInfo.ToTitleCase(word ?? "");
-        }
-
-        private HiddenMarkovModel LoadHMM(string modelPath)
-        {
-            if (!File.Exists(modelPath))
-            {
-                throw new FileNotFoundException($"Couldn't find model file at {modelPath}.");
-            }
-            return Serializer.Load<HiddenMarkovModel>(modelPath);
         }
     }
 }
