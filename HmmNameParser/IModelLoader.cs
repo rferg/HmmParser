@@ -5,7 +5,7 @@ namespace HmmNameParser
     /// <summary>
     /// Loads serialized model.
     /// </summary>
-    public interface IModelLoader
+    internal interface IModelLoader
     {
         /// <summary>
         /// Loads serialized <see cref="HiddenMarkovModel"/> from resource and returns it.

@@ -11,11 +11,15 @@ namespace Common
     /// </summary>
     public class TaggerReferenceLoader : ITaggerReferenceLoader
     {
-        private Assembly Assembly;
+        private IAssemblyWrapper Assembly;
 
-        public TaggerReferenceLoader()
+        public TaggerReferenceLoader() : this(new AssemblyWrapper())
         {
-            Assembly = Assembly.GetExecutingAssembly();
+        }
+
+        internal TaggerReferenceLoader(IAssemblyWrapper assembly)
+        {
+            Assembly = assembly;
         }
 
         public string[] GetPrefixes()

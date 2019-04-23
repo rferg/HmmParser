@@ -1,5 +1,6 @@
 ﻿using Accord.IO;
 using Accord.Statistics.Models.Markov;
+using Common;
 using System;
 using System.IO;
 using System.Linq;
@@ -10,17 +11,21 @@ namespace HmmNameParser
     /// <summary>
     /// Loads serialized model.  Implements <see cref="IModelLoader"/>.
     /// </summary>
-    public class ModelLoader : IModelLoader
+    internal class ModelLoader : IModelLoader
     {
-        private Assembly Assembly;
+        private IAssemblyWrapper Assembly;
         private const string HMM_FILENAME = "hmm.bin";
 
         /// <summary>
         /// Creates instance of <see cref="ModelLoader"/>.
         /// </summary>
-        public ModelLoader()
+        public ModelLoader() : this(new AssemblyWrapper())
+        {            
+        }
+
+        internal ModelLoader(IAssemblyWrapper assembly)
         {
-            Assembly = Assembly.GetExecutingAssembly();
+            Assembly = assembly;
         }
 
         /// <summary>
