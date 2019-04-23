@@ -15,7 +15,7 @@ namespace HmmNameParser
         private TextInfo TextInfo;
 
         /// <summary>
-        /// Initializes <see cref="Parser"/> with default path to serialized <see cref="HiddenMarkovModel"/>.
+        /// Initializes <see cref="Parser"/>.
         /// </summary>
         public Parser() : this(new Tagger(), new ModelLoader())
         {            
