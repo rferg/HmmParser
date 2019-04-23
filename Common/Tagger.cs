@@ -10,10 +10,10 @@ namespace Common
     /// </summary>
     public class Tagger : ITagger
     {
-        private string[] Prefixes { get; set; }
-        private string[] GivenNames { get; set; }
-        private string[] Surnames { get; set; }
-        private string[] Suffixes { get; set; }
+        private string[] Prefixes;
+        private string[] GivenNames;
+        private string[] Surnames;
+        private string[] Suffixes;
 
         /// <summary>
         /// Initializes an instance of <see cref="Tagger"/>
@@ -27,18 +27,7 @@ namespace Common
             Prefixes = referenceLoader.GetPrefixes();
             GivenNames = referenceLoader.GetGivenNames();
             Surnames = referenceLoader.GetSurnames();
-            Suffixes = referenceLoader.GetSurnames();
-        }
-
-        /// <summary>
-        /// Creates array of <see cref="Tag"/> corresponding to words in input array.
-        /// Input should already be split, trimmed, cased, and preprocessed.
-        /// </summary>
-        /// <param name="input">Array of words in name. Should already be formatted correctly.</param>
-        /// <returns><see cref="Tag"/> array</returns>
-        public Tag[] TagInput(string[] input)
-        {
-            return input.Select(str => TagWord(str)).ToArray();
+            Suffixes = referenceLoader.GetSuffixes();
         }
 
         /// <summary>
@@ -49,7 +38,7 @@ namespace Common
         /// </summary>
         /// <param name="input">Array of words in name. Should already be formatted correctly.</param>
         /// <returns><see cref="int"/> array</returns>
-        public int[] TagInputAsInt(string[] input)
+        public int[] TagInput(string[] input)
         {
             return input.Select(str => (int)TagWord(str)).ToArray();
         }

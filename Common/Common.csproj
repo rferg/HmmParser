@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ITagger.cs" />
     <Compile Include="ITaggerReferenceLoader.cs" />
     <Compile Include="Label.cs" />

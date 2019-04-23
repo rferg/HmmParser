@@ -10,9 +10,9 @@ namespace HmmNameParser
     /// </summary>
     public class Parser
     {
-        private HiddenMarkovModel HMM { get; set; }
-        private ITagger Tagger { get; set; }
-        private TextInfo TextInfo = new CultureInfo("en-US", false).TextInfo;
+        private HiddenMarkovModel HMM;
+        private ITagger Tagger;
+        private TextInfo TextInfo;
 
         /// <summary>
         /// Initializes <see cref="Parser"/> with default path to serialized <see cref="HiddenMarkovModel"/>.
@@ -23,6 +23,7 @@ namespace HmmNameParser
 
         internal Parser(ITagger tagger, IModelLoader modelLoader)
         {
+            TextInfo = new CultureInfo("en-US", false).TextInfo;
             Tagger = tagger;
             HMM = modelLoader.LoadHMM();
         }
@@ -35,7 +36,7 @@ namespace HmmNameParser
         public Name Parse(string name)
         {
             string[] words = Preprocessing.GetFormattedWords(name?.Trim() ?? "");
-            int[] tags = Tagger.TagInputAsInt(words);
+            int[] tags = Tagger.TagInput(words);
             int[] labels = HMM.Decide(tags);
             return AssignToNameFromLabels(labels, words);
         }

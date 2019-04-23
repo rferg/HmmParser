@@ -12,7 +12,7 @@ namespace HmmNameParser
     /// </summary>
     public class ModelLoader : IModelLoader
     {
-        private Assembly Assembly { get; set; }
+        private Assembly Assembly;
         private const string HMM_FILENAME = "hmm.bin";
 
         /// <summary>

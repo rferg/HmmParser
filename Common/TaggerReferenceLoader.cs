@@ -11,7 +11,7 @@ namespace Common
     /// </summary>
     public class TaggerReferenceLoader : ITaggerReferenceLoader
     {
-        private Assembly Assembly { get; set; }
+        private Assembly Assembly;
 
         public TaggerReferenceLoader()
         {

@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="IModelLoader.cs" />
     <Compile Include="ModelLoader.cs" />
     <Compile Include="Parser.cs" />

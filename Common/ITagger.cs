@@ -8,14 +8,6 @@
     public interface ITagger
     {
         /// <summary>
-        /// Creates array of <see cref="Tag"/> corresponding to words in input array.
-        /// Input should already be split, trimmed, cased, and preprocessed.
-        /// </summary>
-        /// <param name="input">Array of words in name. Should already be formatted correctly.</param>
-        /// <returns><see cref="Tag"/> array</returns>
-        Tag[] TagInput(string[] input);
-
-        /// <summary>
         /// Creates array of <see cref="int"/> representing underlying value of <see cref="Tag"/>
         /// corresponding to words in input array.  For convenience so that returned value can be passed
         /// directly to HMM.
@@ -23,6 +15,6 @@
         /// </summary>
         /// <param name="input">Array of words in name. Should already be formatted correctly.</param>
         /// <returns><see cref="int"/> array</returns>
-        int[] TagInputAsInt(string[] input);
+        int[] TagInput(string[] input);
     }
 }
