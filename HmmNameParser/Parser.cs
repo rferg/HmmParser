@@ -10,7 +10,7 @@ namespace HmmNameParser
     /// </summary>
     public class Parser
     {
-        private HiddenMarkovModel HMM;
+        private IHiddenMarkovModelWrapper HMM;
         private ITagger Tagger;
         private TextInfo TextInfo;
 

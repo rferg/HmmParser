@@ -20,7 +20,7 @@ namespace HmmNameParser
         /// Creates instance of <see cref="ModelLoader"/>.
         /// </summary>
         public ModelLoader() : this(new AssemblyWrapper())
-        {            
+        {
         }
 
         internal ModelLoader(IAssemblyWrapper assembly)
@@ -34,7 +34,7 @@ namespace HmmNameParser
         /// <returns></returns>
         /// <exception cref="Exception">If resource name is not found.</exception>
         /// <exception cref="Exception">If resource is not found.</exception>
-        public HiddenMarkovModel LoadHMM()
+        public IHiddenMarkovModelWrapper LoadHMM()
         {
             string resourceName = Assembly.GetManifestResourceNames()
                 .SingleOrDefault(name => name.EndsWith(HMM_FILENAME));
@@ -55,7 +55,7 @@ namespace HmmNameParser
                 throw new Exception($"Model resource at {resourceName} not found.");
             }
 
-            return model;
+            return new HiddenMarkovModelWrapper(model);
         }
     }
 }

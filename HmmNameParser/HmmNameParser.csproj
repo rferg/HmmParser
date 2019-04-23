@@ -56,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="HiddenMarkovModelWrapper.cs" />
+    <Compile Include="IHiddenMarkovModelWrapper.cs" />
     <Compile Include="IModelLoader.cs" />
     <Compile Include="ModelLoader.cs" />
     <Compile Include="Parser.cs" />
