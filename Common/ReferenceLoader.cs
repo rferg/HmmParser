@@ -7,17 +7,17 @@ namespace Common
 {
     /// <summary>
     /// Retrieves reference arrays for <see cref="Tagger"/>
-    /// Implements <see cref="ITaggerReferenceLoader"/>
+    /// Implements <see cref="IReferenceLoader"/>
     /// </summary>
-    public class TaggerReferenceLoader : ITaggerReferenceLoader
+    public class ReferenceLoader : IReferenceLoader
     {
         private IAssemblyWrapper Assembly;
 
-        public TaggerReferenceLoader() : this(new AssemblyWrapper())
+        public ReferenceLoader() : this(new AssemblyWrapper())
         {
         }
 
-        internal TaggerReferenceLoader(IAssemblyWrapper assembly)
+        internal ReferenceLoader(IAssemblyWrapper assembly)
         {
             Assembly = assembly;
         }
@@ -40,6 +40,11 @@ namespace Common
         public string[] GetSuffixes()
         {
             return GetReferenceArray("Suffixes.csv");
+        }
+
+        public string[] GetOrgIndicators()
+        {
+            return GetReferenceArray("OrgIndicators.csv");
         }
 
         private string[] GetReferenceArray(string fileName)

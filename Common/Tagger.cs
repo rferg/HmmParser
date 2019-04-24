@@ -18,11 +18,11 @@ namespace Common
         /// <summary>
         /// Initializes an instance of <see cref="Tagger"/>
         /// </summary>
-        public Tagger() : this(new TaggerReferenceLoader())
+        public Tagger() : this(new ReferenceLoader())
         {
         }
 
-        internal Tagger(ITaggerReferenceLoader referenceLoader)
+        internal Tagger(IReferenceLoader referenceLoader)
         {
             Prefixes = referenceLoader.GetPrefixes();
             GivenNames = referenceLoader.GetGivenNames();

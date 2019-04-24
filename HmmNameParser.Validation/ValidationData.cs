@@ -106,6 +106,14 @@ namespace HmmNameParser.Validation
                         MiddleName = "S.",
                         LastName = "Lewis"
                     }
+                },
+                new object[]
+                {
+                    "A Corporation Inc.",
+                    new Name()
+                    {
+                        LastName = "A Corporation Inc."
+                    }
                 }
             };
 

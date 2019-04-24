@@ -13,11 +13,11 @@ namespace Common.Tests
         public class WithOutReferences
         {
             private Tagger Tagger;
-            private Mock<ITaggerReferenceLoader> LoaderMock;
+            private Mock<IReferenceLoader> LoaderMock;
 
             public WithOutReferences()
             {
-                LoaderMock = new Mock<ITaggerReferenceLoader>();
+                LoaderMock = new Mock<IReferenceLoader>();
                 Tagger = new Tagger(LoaderMock.Object);
 
                 // return empty reference array by default
@@ -51,11 +51,11 @@ namespace Common.Tests
         public class WithReferences
         {
             private Tagger Tagger;
-            private Mock<ITaggerReferenceLoader> LoaderMock;
+            private Mock<IReferenceLoader> LoaderMock;
 
             public WithReferences()
             {
-                LoaderMock = new Mock<ITaggerReferenceLoader>();
+                LoaderMock = new Mock<IReferenceLoader>();
                 SetUpReferences();
 
                 Tagger = new Tagger(LoaderMock.Object);

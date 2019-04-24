@@ -15,6 +15,7 @@ namespace HmmNameParser.Tests
         private Mock<IModelLoader> ModelLoaderMock;
         private Mock<IHiddenMarkovModelWrapper> HMMMock;
         private Mock<INameFormatter> FormatterMock;
+        private Mock<IIndividualChecker> IndividualCheckerMock;
 
         public ParserTest()
         {
@@ -29,7 +30,14 @@ namespace HmmNameParser.Tests
             FormatterMock = new Mock<INameFormatter>();
             FormatterMock.Setup(f => f.Format(It.IsAny<Name>())).Returns<Name>(name => name);
 
-            Parser = new Parser(TaggerMock.Object, ModelLoaderMock.Object, FormatterMock.Object);
+            IndividualCheckerMock = new Mock<IIndividualChecker>();
+            IndividualCheckerMock.SetReturnsDefault(true);
+
+            Parser = new Parser(
+                TaggerMock.Object,
+                ModelLoaderMock.Object,
+                FormatterMock.Object,
+                IndividualCheckerMock.Object);
         }
 
         [Fact]
@@ -60,6 +68,15 @@ namespace HmmNameParser.Tests
             HMMMock.Setup(m => m.Decide(It.IsAny<int[]>()))
                 .Returns(labels);
             Assert.Equal(expectedOutput, Parser.Parse(input), new NameComparer());
+        }
+
+        [Fact]
+        public void Parse_ShouldAssignWholeNameToLastNameWhenNonIndividual()
+        {
+            IndividualCheckerMock.Setup(m => m.IsIndividual(It.IsAny<string[]>())).Returns(false);
+            string input = "A Corporation Inc.";
+            Name expected = new Name() { LastName = input };
+            Assert.Equal(expected, Parser.Parse(input), new NameComparer());
         }
 
         private class NameComparer : IEqualityComparer<Name>

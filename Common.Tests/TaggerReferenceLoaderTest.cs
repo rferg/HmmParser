@@ -11,7 +11,7 @@ namespace Common.Tests
 {
     public class TaggerReferenceLoaderTest
     {
-        private TaggerReferenceLoader Loader;
+        private ReferenceLoader Loader;
         private Mock<IAssemblyWrapper> AssemblyMock;
 
         public TaggerReferenceLoaderTest()
@@ -22,7 +22,7 @@ namespace Common.Tests
             AssemblyMock.Setup(a => a.GetManifestResourceStream(It.IsAny<string>()))
                 .Returns(new MemoryStream());
 
-            Loader = new TaggerReferenceLoader(AssemblyMock.Object);
+            Loader = new ReferenceLoader(AssemblyMock.Object);
         }
 
         [Fact]

@@ -2,6 +2,7 @@
 using Common;
 using System;
 using System.Globalization;
+using System.Linq;
 
 namespace HmmNameParser
 {
@@ -13,19 +14,25 @@ namespace HmmNameParser
         private IHiddenMarkovModelWrapper HMM;
         private ITagger Tagger;        
         private INameFormatter Formatter;
+        private IIndividualChecker IndividualChecker;
 
         /// <summary>
         /// Initializes <see cref="Parser"/>.
         /// </summary>
-        public Parser() : this(new Tagger(), new ModelLoader(), new NameFormatter())
+        public Parser() : this(new Tagger(), new ModelLoader(), new NameFormatter(), new IndividualChecker())
         {            
         }
 
-        internal Parser(ITagger tagger, IModelLoader modelLoader, INameFormatter formatter)
+        internal Parser(
+            ITagger tagger,
+            IModelLoader modelLoader,
+            INameFormatter formatter,
+            IIndividualChecker individualChecker)
         {
             Tagger = tagger;            
             HMM = modelLoader.LoadHMM();
             Formatter = formatter;
+            IndividualChecker = individualChecker;
         }
 
         /// <summary>
@@ -36,8 +43,17 @@ namespace HmmNameParser
         public Name Parse(string name)
         {
             string[] words = Preprocessing.GetFormattedWords(name?.Trim() ?? "");
-            int[] tags = Tagger.TagInput(words);
-            int[] labels = HMM.Decide(tags);
+            int[] labels = new int[0];
+            if (IndividualChecker.IsIndividual(words))
+            {
+                int[] tags = Tagger.TagInput(words);
+                labels = HMM.Decide(tags);
+            }
+            else
+            {
+                // if non-individual, just assign everything to LastName
+                labels = words.Select(w => (int)Label.LastName).ToArray();
+            }
             Name parsedName = AssignToNameFromLabels(labels, words);
             return Formatter.Format(parsedName);
         }
