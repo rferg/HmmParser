@@ -14,6 +14,7 @@ namespace HmmNameParser.Tests
         private Mock<ITagger> TaggerMock;
         private Mock<IModelLoader> ModelLoaderMock;
         private Mock<IHiddenMarkovModelWrapper> HMMMock;
+        private Mock<INameFormatter> FormatterMock;
 
         public ParserTest()
         {
@@ -25,7 +26,10 @@ namespace HmmNameParser.Tests
             ModelLoaderMock = new Mock<IModelLoader>();
             ModelLoaderMock.Setup(m => m.LoadHMM()).Returns(HMMMock.Object);
 
-            Parser = new Parser(TaggerMock.Object, ModelLoaderMock.Object);
+            FormatterMock = new Mock<INameFormatter>();
+            FormatterMock.Setup(f => f.Format(It.IsAny<Name>())).Returns<Name>(name => name);
+
+            Parser = new Parser(TaggerMock.Object, ModelLoaderMock.Object, FormatterMock.Object);
         }
 
         [Fact]
@@ -62,11 +66,13 @@ namespace HmmNameParser.Tests
         {
             public bool Equals(Name x, Name y)
             {
-                return x.Prefix == y.Prefix
-                    && x.FirstName == y.FirstName
-                    && x.MiddleName == y.MiddleName
-                    && x.LastName == y.LastName
-                    && x.Suffix == y.Suffix;
+                // formatting is handled by INameFormatter class
+                // so need to test that here
+                return x.Prefix?.ToLower() == y.Prefix?.ToLower()
+                    && x.FirstName?.ToLower() == y.FirstName?.ToLower()
+                    && x.MiddleName?.ToLower() == y.MiddleName?.ToLower()
+                    && x.LastName?.ToLower() == y.LastName?.ToLower()
+                    && x.Suffix?.ToLower() == y.Suffix?.ToLower();
             }
 
             public int GetHashCode(Name obj)

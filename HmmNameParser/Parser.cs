@@ -11,21 +11,21 @@ namespace HmmNameParser
     public class Parser
     {
         private IHiddenMarkovModelWrapper HMM;
-        private ITagger Tagger;
-        private TextInfo TextInfo;
+        private ITagger Tagger;        
+        private INameFormatter Formatter;
 
         /// <summary>
         /// Initializes <see cref="Parser"/>.
         /// </summary>
-        public Parser() : this(new Tagger(), new ModelLoader())
+        public Parser() : this(new Tagger(), new ModelLoader(), new NameFormatter())
         {            
         }
 
-        internal Parser(ITagger tagger, IModelLoader modelLoader)
+        internal Parser(ITagger tagger, IModelLoader modelLoader, INameFormatter formatter)
         {
-            TextInfo = new CultureInfo("en-US", false).TextInfo;
-            Tagger = tagger;
+            Tagger = tagger;            
             HMM = modelLoader.LoadHMM();
+            Formatter = formatter;
         }
 
         /// <summary>
@@ -38,7 +38,8 @@ namespace HmmNameParser
             string[] words = Preprocessing.GetFormattedWords(name?.Trim() ?? "");
             int[] tags = Tagger.TagInput(words);
             int[] labels = HMM.Decide(tags);
-            return AssignToNameFromLabels(labels, words);
+            Name parsedName = AssignToNameFromLabels(labels, words);
+            return Formatter.Format(parsedName);
         }
 
         private Name AssignToNameFromLabels(int[] labels, string[] words)
@@ -52,7 +53,7 @@ namespace HmmNameParser
             for (int i = 0; i < labels.Length; i++)
             {
                 Label label = (Label)labels[i];
-                string word = ToTitleCase(words[i]?.Trim());
+                string word = words[i]?.Trim();
 
                 switch (label)
                 {
@@ -77,11 +78,6 @@ namespace HmmNameParser
             }
 
             return name;
-        }
-
-        private string ToTitleCase(string word)
-        {
-            return TextInfo.ToTitleCase(word ?? "");
         }
     }
 }
