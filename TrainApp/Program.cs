@@ -77,6 +77,7 @@ namespace TrainApp
 
         static ConsoleKey PromptForMainOption()
         {
+            Console.WriteLine();
             Console.WriteLine("What do you want to do?");
             Console.WriteLine(" N: train a new model");
             Console.WriteLine(" T: test an existing model");

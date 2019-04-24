@@ -55,7 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="HiddenMarkovModelWrapper.cs" />
     <Compile Include="IHiddenMarkovModelWrapper.cs" />
     <Compile Include="IModelLoader.cs" />
