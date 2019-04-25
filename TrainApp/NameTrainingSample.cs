@@ -2,11 +2,8 @@
 
 namespace TrainApp
 {
-    internal class NameTrainingSample
+    internal class NameTrainingSample : Sample
     {
-        [Name("Input")]
-        public string Input { get; set; }
-
         [Name("Prefix")]
         public string Prefix { get; set; }
 

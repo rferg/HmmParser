@@ -1,5 +1,6 @@
 ﻿using Accord.IO;
 using Accord.Statistics.Models.Markov;
+using Common;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -18,28 +19,43 @@ namespace TrainApp
             
             while (true)
             {
+                Console.WriteLine("What will this model be parsing?");
+                Console.WriteLine(" A: Addresses");
+                Console.WriteLine(" N: Names");
+                ParseTarget target = ParseTarget.Name;
+                ConsoleKey targetKey = Console.ReadKey().Key;
+                if (targetKey == ConsoleKey.A)
+                {
+                    target = ParseTarget.Address;
+                }
+                if (targetKey == ConsoleKey.N)
+                {
+                    target = ParseTarget.Name;
+                }
+                Console.WriteLine($"Parse Target: {target}");
+
                 ConsoleKey key = PromptForMainOption();
 
                 try
                 {
                     if (key == ConsoleKey.N)
                     {
-                        Train();
+                        Train(target);
                     }
-                    else if (key == ConsoleKey.T)
+                    else if (key == ConsoleKey.E)
                     {
                         string modelPath =
                             GetFilePath(REQUIRED_MODEL_EXTENSION, "Please enter path to your model file:");
                         HiddenMarkovModel hmm = Serializer.Load<HiddenMarkovModel>(modelPath);
-                        Test(hmm);
+                        Test(hmm, target);
                     }
-                    else if (key == ConsoleKey.P)
-                    {
-                        string modelPath =
-                            GetFilePath(REQUIRED_MODEL_EXTENSION, "Please enter path to your model file:");
-                        HiddenMarkovModel hmm = Serializer.Load<HiddenMarkovModel>(modelPath);
-                        ParseFromConsole(hmm);
-                    }
+                    //else if (key == ConsoleKey.P)
+                    //{
+                    //    string modelPath =
+                    //        GetFilePath(REQUIRED_MODEL_EXTENSION, "Please enter path to your model file:");
+                    //    HiddenMarkovModel hmm = Serializer.Load<HiddenMarkovModel>(modelPath);
+                    //    ParseFromConsole(hmm);
+                    //}
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -80,26 +96,38 @@ namespace TrainApp
             Console.WriteLine();
             Console.WriteLine("What do you want to do?");
             Console.WriteLine(" N: train a new model");
-            Console.WriteLine(" T: test an existing model");
-            Console.WriteLine(" P: use an existing model to parse names in the console");
+            Console.WriteLine(" E: test an existing model");
+            //Console.WriteLine(" P: use an existing model to parse names in the console");
             Console.WriteLine("Enter Option:");
             return Console.ReadKey().Key;
         }
 
-        static void Train()
+        static void Train(ParseTarget target)
         {
             string filePath = GetFilePath(".csv", "Please enter path to training data file:");
-            Tuple<int[][], int[][]> xAndY = GetTransformedData(filePath);
+            Tuple<int[][], int[][]> xAndY = GetTransformedData(filePath, target);
+
             Console.WriteLine("Training model...");
-            ModelTrainer trainer = new ModelTrainer();
-            HiddenMarkovModel hmm = trainer.TrainModel(xAndY.Item1, xAndY.Item2);
+            HiddenMarkovModel hmm = null;
+            if (target == ParseTarget.Name)
+            {
+                ModelTrainer<NameTag, NameLabel> trainer = new ModelTrainer<NameTag, NameLabel>();
+                hmm = trainer.TrainModel(xAndY.Item1, xAndY.Item2);
+            }
+
+            if (target == ParseTarget.Address)
+            {
+                ModelTrainer<AddressTag, AddressLabel> trainer = new ModelTrainer<AddressTag, AddressLabel>();
+                hmm = trainer.TrainModel(xAndY.Item1, xAndY.Item2);
+            }
+
             Console.WriteLine("Model trained.");
 
             Console.WriteLine("Do you want to (T)est this model or (S)ave it right away?");
             ConsoleKey key = Console.ReadKey().Key;
             if (key == ConsoleKey.T)
             {
-                Test(hmm);
+                Test(hmm, target);
                 Console.WriteLine("Save this model (Y/N)?");
                 ConsoleKey saveKey = Console.ReadKey().Key;
                 if (saveKey == ConsoleKey.Y)
@@ -114,10 +142,10 @@ namespace TrainApp
             }
         }
 
-        static void Test(HiddenMarkovModel hmm)
+        static void Test(HiddenMarkovModel hmm, ParseTarget target)
         {
             string filePath = GetFilePath(".csv", "Please enter path to test data file:");
-            Tuple<int[][], int[][]> xAndY = GetTransformedData(filePath);
+            Tuple<int[][], int[][]> xAndY = GetTransformedData(filePath, target);
             Console.WriteLine("Testing model...");
             ModelTester tester = new ModelTester(hmm);
             HMMTestResult results = tester.Test(xAndY);
@@ -131,12 +159,27 @@ namespace TrainApp
             // TODO
         }
 
-        static Tuple<int[][], int[][]> GetTransformedData(string filePath)
+        static Tuple<int[][], int[][]> GetTransformedData(string filePath, ParseTarget target)
         {
-            RecordsLoader loader = new RecordsLoader(filePath);
-            RecordsTransformer transformer = new RecordsTransformer();
+            Tuple<int[][], int[][]> result = null;
             Console.WriteLine("Loading and transforming records...");
-            return transformer.GetXAndY(loader.Load());
+            if (target == ParseTarget.Address)
+            {
+                RecordsLoader<AddressTrainingSample> loader = new RecordsLoader<AddressTrainingSample>(filePath);
+                RecordsTransformer<AddressTrainingSample, AddressLabel, AddressTagger> transformer =
+                    new RecordsTransformer<AddressTrainingSample, AddressLabel, AddressTagger>();
+                result = transformer.GetXAndY(loader.Load(), '-');
+            }
+
+            if (target == ParseTarget.Name)
+            {
+                RecordsLoader<NameTrainingSample> loader = new RecordsLoader<NameTrainingSample>(filePath);
+                RecordsTransformer<NameTrainingSample, NameLabel, NameTagger> transformer =
+                    new RecordsTransformer<NameTrainingSample, NameLabel, NameTagger>();
+                result = transformer.GetXAndY(loader.Load());
+            }
+
+            return result;
         }
 
         static void SaveModel(HiddenMarkovModel hmm)

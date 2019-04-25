@@ -8,7 +8,7 @@ using System.Text;
 
 namespace TrainApp
 {
-    internal class ModelTrainer
+    internal class ModelTrainer<TagEnum, LabelEnum>
     {
         private HiddenMarkovModel HMM;
         private MaximumLikelihoodLearning Teacher;
@@ -16,8 +16,8 @@ namespace TrainApp
         public ModelTrainer()
         {
             HMM = new HiddenMarkovModel(
-                new Forward(Enum.GetValues(typeof(NameLabel)).Length),
-                Enum.GetValues(typeof(NameTag)).Length);
+                new Forward(Enum.GetValues(typeof(LabelEnum)).Length),
+                Enum.GetValues(typeof(TagEnum)).Length);
             HMM.Algorithm = HiddenMarkovModelAlgorithm.Viterbi;
 
             Teacher = new MaximumLikelihoodLearning(HMM);

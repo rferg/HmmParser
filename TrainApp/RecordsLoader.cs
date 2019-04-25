@@ -7,7 +7,7 @@ using System.Text;
 
 namespace TrainApp
 {
-    internal class RecordsLoader
+    internal class RecordsLoader<SampleType> where SampleType : Sample
     {
         private string FilePath;
         public RecordsLoader(string filePath)
@@ -25,13 +25,13 @@ namespace TrainApp
             FilePath = filePath;
         }
 
-        public NameTrainingSample[] Load()
+        public SampleType[] Load()
         {
-            NameTrainingSample[] records = new NameTrainingSample[0];
+            SampleType[] records = new SampleType[0];
             using (StreamReader reader = new StreamReader(FilePath))
             using (CsvReader csv = new CsvReader(reader))
             {
-                records = csv.GetRecords<NameTrainingSample>().ToArray();
+                records = csv.GetRecords<SampleType>().ToArray();
             }
             return records;
         }
