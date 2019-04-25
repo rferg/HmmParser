@@ -9,7 +9,7 @@ namespace HmmNameParser
     /// <summary>
     /// Provides method for parsing full name <see cref="string"/> into <see cref="Name"/> class.
     /// </summary>
-    public class Parser
+    public class NameParser
     {
         private IHiddenMarkovModelWrapper HMM;
         private ITagger Tagger;        
@@ -17,13 +17,13 @@ namespace HmmNameParser
         private IIndividualChecker IndividualChecker;
 
         /// <summary>
-        /// Initializes <see cref="Parser"/>.
+        /// Initializes <see cref="NameParser"/>.
         /// </summary>
-        public Parser() : this(new Tagger(), new ModelLoader(), new NameFormatter(), new IndividualChecker())
+        public NameParser() : this(new NameTagger(), new ModelLoader(), new NameFormatter(), new IndividualChecker())
         {            
         }
 
-        internal Parser(
+        internal NameParser(
             ITagger tagger,
             IModelLoader modelLoader,
             INameFormatter formatter,
@@ -52,7 +52,7 @@ namespace HmmNameParser
             else
             {
                 // if non-individual, just assign everything to LastName
-                labels = words.Select(w => (int)Label.LastName).ToArray();
+                labels = words.Select(w => (int)NameLabel.LastName).ToArray();
             }
             Name parsedName = AssignToNameFromLabels(labels, words);
             return Formatter.Format(parsedName);
@@ -68,24 +68,24 @@ namespace HmmNameParser
             Name name = new Name();
             for (int i = 0; i < labels.Length; i++)
             {
-                Label label = (Label)labels[i];
+                NameLabel label = (NameLabel)labels[i];
                 string word = words[i]?.Trim();
 
                 switch (label)
                 {
-                    case Label.Prefix:
+                    case NameLabel.Prefix:
                         name.Prefix += string.IsNullOrEmpty(name.Prefix) ? word : " " + word;
                         break;
-                    case Label.FirstName:
+                    case NameLabel.FirstName:
                         name.FirstName += string.IsNullOrEmpty(name.FirstName) ? word : " " + word;
                         break;
-                    case Label.MiddleName:
+                    case NameLabel.MiddleName:
                         name.MiddleName += string.IsNullOrEmpty(name.MiddleName) ? word : " " + word;
                         break;
-                    case Label.LastName:
+                    case NameLabel.LastName:
                         name.LastName += string.IsNullOrEmpty(name.LastName) ? word : " " + word;
                         break;
-                    case Label.Suffix:
+                    case NameLabel.Suffix:
                         name.Suffix += string.IsNullOrEmpty(name.Suffix) ? word : " " + word;
                         break;
                     default:

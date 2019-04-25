@@ -1,7 +1,7 @@
 ﻿namespace Common
 {
     /// <summary>
-    /// Retrieves reference arrays for name-parts for use with
+    /// Retrieves reference arrays for name/address-parts for use with
     /// <see cref="ITagger"/> and <see cref="IIndividualChecker"/>.
     /// </summary>
     public interface IReferenceLoader
@@ -42,5 +42,29 @@
         /// </summary>
         /// <returns></returns>
         string[] GetSurnamePrefixes();
+
+        /// <summary>
+        /// Gets reference array for street types, e.g. 'St.', 'Blvd.'
+        /// </summary>
+        /// <returns></returns>
+        string[] GetStreetTypes();
+
+        /// <summary>
+        /// Gets reference array for unit types, e.g., 'Apt.'
+        /// </summary>
+        /// <returns></returns>
+        string[] GetUnitTypes();
+
+        /// <summary>
+        /// Gets reference array for PO Box indicators
+        /// </summary>
+        /// <returns></returns>
+        string[] GetBoxes();
+
+        /// <summary>
+        /// Gets reference array for U.S. State abbreviations
+        /// </summary>
+        /// <returns></returns>
+        string[] GetUSStates();
     }
 }

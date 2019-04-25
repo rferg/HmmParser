@@ -8,17 +8,17 @@ using Xunit;
 
 namespace Common.Tests
 {
-    public class TaggerTest
+    public class NameTaggerTest
     {
         public class WithOutReferences
         {
-            private Tagger Tagger;
+            private NameTagger Tagger;
             private Mock<IReferenceLoader> LoaderMock;
 
             public WithOutReferences()
             {
                 LoaderMock = new Mock<IReferenceLoader>();
-                Tagger = new Tagger(LoaderMock.Object);
+                Tagger = new NameTagger(LoaderMock.Object);
 
                 // return empty reference array by default
                 LoaderMock.SetReturnsDefault(new string[0]);
@@ -43,14 +43,14 @@ namespace Common.Tests
             public void TagInput_ShouldTagAsUnknownByDefault()
             {
                 string[] input = new string[3] { "abc", "def", "ghi" };
-                Assert.True(Tagger.TagInput(input).All(tag => (Tag)tag == Tag.Unknown));
+                Assert.True(Tagger.TagInput(input).All(tag => (NameTag)tag == NameTag.Unknown));
             }
 
         }
 
         public class WithReferences
         {
-            private Tagger Tagger;
+            private NameTagger Tagger;
             private Mock<IReferenceLoader> LoaderMock;
 
             public WithReferences()
@@ -58,7 +58,7 @@ namespace Common.Tests
                 LoaderMock = new Mock<IReferenceLoader>();
                 SetUpReferences();
 
-                Tagger = new Tagger(LoaderMock.Object);
+                Tagger = new NameTagger(LoaderMock.Object);
 
             }
 
@@ -77,25 +77,25 @@ namespace Common.Tests
             }
 
             [Theory]
-            [InlineData("van", Tag.SurnamePrefix)]
-            [InlineData("mr", Tag.Prefix)]
-            [InlineData("jr", Tag.Suffix)]
-            [InlineData("john", Tag.GivenName)]
-            [InlineData("smith", Tag.Surname)]
-            [InlineData("unknown", Tag.Unknown)]
-            public void TagInput_ShouldTagWordIfContainedInReferenceArray(string word, Tag expectedTag)
+            [InlineData("van", NameTag.SurnamePrefix)]
+            [InlineData("mr", NameTag.Prefix)]
+            [InlineData("jr", NameTag.Suffix)]
+            [InlineData("john", NameTag.GivenName)]
+            [InlineData("smith", NameTag.Surname)]
+            [InlineData("unknown", NameTag.Unknown)]
+            public void TagInput_ShouldTagWordIfContainedInReferenceArray(string word, NameTag expectedTag)
             {
-                Assert.Equal(expectedTag, (Tag)Tagger.TagInput(new string[1] { word }).First());
+                Assert.Equal(expectedTag, (NameTag)Tagger.TagInput(new string[1] { word }).First());
             }
 
             [Theory]
-            [InlineData("p0", Tag.SurnamePrefix)]
-            [InlineData("p1", Tag.Prefix)]
-            [InlineData("p2", Tag.Suffix)]
-            [InlineData("p3", Tag.Surname)]
-            public void TagInput_ShouldHaveCorrectTagPriorities(string word, Tag expectedTag)
+            [InlineData("p0", NameTag.SurnamePrefix)]
+            [InlineData("p1", NameTag.Prefix)]
+            [InlineData("p2", NameTag.Suffix)]
+            [InlineData("p3", NameTag.Surname)]
+            public void TagInput_ShouldHaveCorrectTagPriorities(string word, NameTag expectedTag)
             {
-                Assert.Equal(expectedTag, (Tag)Tagger.TagInput(new string[1] { word }).First());
+                Assert.Equal(expectedTag, (NameTag)Tagger.TagInput(new string[1] { word }).First());
             }
         }
     }

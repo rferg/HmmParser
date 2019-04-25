@@ -25,13 +25,13 @@ namespace TrainApp
             FilePath = filePath;
         }
 
-        public TrainingSample[] Load()
+        public NameTrainingSample[] Load()
         {
-            TrainingSample[] records = new TrainingSample[0];
+            NameTrainingSample[] records = new NameTrainingSample[0];
             using (StreamReader reader = new StreamReader(FilePath))
             using (CsvReader csv = new CsvReader(reader))
             {
-                records = csv.GetRecords<TrainingSample>().ToArray();
+                records = csv.GetRecords<NameTrainingSample>().ToArray();
             }
             return records;
         }

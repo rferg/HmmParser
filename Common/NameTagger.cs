@@ -5,10 +5,10 @@ namespace Common
     /// <summary>
     /// Exposes method for tagging words in a name with name-part tags based on provided reference arrays.
     /// This converts array of words into array of <see cref="int"/> that can be passed to HMM.
-    /// For example, 'Mr.' might be tagged as <see cref="Tag.Prefix"/>.
+    /// For example, 'Mr.' might be tagged as <see cref="NameTag.Prefix"/>.
     /// Implements <see cref="ITagger"/>
     /// </summary>
-    public class Tagger : ITagger
+    public class NameTagger : ITagger
     {
         private string[] Prefixes;
         private string[] GivenNames;
@@ -17,13 +17,13 @@ namespace Common
         private string[] SurnamePrefixes;
 
         /// <summary>
-        /// Initializes an instance of <see cref="Tagger"/>
+        /// Initializes an instance of <see cref="NameTagger"/>
         /// </summary>
-        public Tagger() : this(new ReferenceLoader())
+        public NameTagger() : this(new ReferenceLoader())
         {
         }
 
-        internal Tagger(IReferenceLoader referenceLoader)
+        internal NameTagger(IReferenceLoader referenceLoader)
         {
             Prefixes = referenceLoader.GetPrefixes();
             GivenNames = referenceLoader.GetGivenNames();
@@ -33,7 +33,7 @@ namespace Common
         }
 
         /// <summary>
-        /// Creates array of <see cref="int"/> representing underlying value of <see cref="Tag"/>
+        /// Creates array of <see cref="int"/> representing underlying value of <see cref="NameTag"/>
         /// corresponding to words in input array.  For convenience so that returned value can be passed
         /// directly to HMM.
         /// Input should already be split, trimmed, cased, and preprocessed.
@@ -45,34 +45,34 @@ namespace Common
             return input.Select(str => (int)TagWord(str)).ToArray();
         }
 
-        private Tag TagWord(string word)
+        private NameTag TagWord(string word)
         {
             if (SurnamePrefixes.Contains(word))
             {
-                return Tag.SurnamePrefix;
+                return NameTag.SurnamePrefix;
             }
 
             if (Prefixes.Contains(word))
             {
-                return Tag.Prefix;
+                return NameTag.Prefix;
             }
 
             if (Suffixes.Contains(word))
             {
-                return Tag.Suffix;
+                return NameTag.Suffix;
             }
 
             if (Surnames.Contains(word))
             {
-                return Tag.Surname;
+                return NameTag.Surname;
             }
 
             if (GivenNames.Contains(word))
             {
-                return Tag.GivenName;
+                return NameTag.GivenName;
             }
 
-            return Tag.Unknown;
+            return NameTag.Unknown;
         }
     }
 }

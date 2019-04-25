@@ -61,7 +61,7 @@
     <Compile Include="INameFormatter.cs" />
     <Compile Include="ModelLoader.cs" />
     <Compile Include="NameFormatter.cs" />
-    <Compile Include="Parser.cs" />
+    <Compile Include="NameParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

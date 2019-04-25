@@ -101,6 +101,50 @@ namespace Common.Tests
             SetUpAssemblyMock(fileName, refString);
 
             Assert.Equal(expected, Loader.GetSurnamePrefixes());
+        }        
+
+        [Fact]
+        public void GetStreetTypes_ReturnsReferenceArray()
+        {
+            string refString = "a,b,c";
+            string[] expected = refString.Split(',');
+            string fileName = "StreetTypes.csv";
+            SetUpAssemblyMock(fileName, refString);
+
+            Assert.Equal(expected, Loader.GetStreetTypes());
+        }
+
+        [Fact]
+        public void GetUnitTypes_ReturnsReferenceArray()
+        {
+            string refString = "a,b,c";
+            string[] expected = refString.Split(',');
+            string fileName = "UnitTypes.csv";
+            SetUpAssemblyMock(fileName, refString);
+
+            Assert.Equal(expected, Loader.GetUnitTypes());
+        }
+
+        [Fact]
+        public void GetBoxes_ReturnsReferenceArray()
+        {
+            string refString = "a,b,c";
+            string[] expected = refString.Split(',');
+            string fileName = "Boxes.csv";
+            SetUpAssemblyMock(fileName, refString);
+
+            Assert.Equal(expected, Loader.GetBoxes());
+        }
+
+        [Fact]
+        public void GetUSStates_ReturnsReferenceArray()
+        {
+            string refString = "a,b,c";
+            string[] expected = refString.Split(',');
+            string fileName = "States.csv";
+            SetUpAssemblyMock(fileName, refString);
+
+            Assert.Equal(expected, Loader.GetUSStates());
         }
     }
 }

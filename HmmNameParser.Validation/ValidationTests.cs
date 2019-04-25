@@ -7,11 +7,11 @@ namespace HmmNameParser.Validation
     
     public class ValidationTests
     {
-        private Parser Parser;
+        private NameParser Parser;
 
         public ValidationTests()
         {
-            Parser = new Parser();
+            Parser = new NameParser();
         }
 
         [Theory]

@@ -3,12 +3,12 @@
     /// <summary>
     /// Exposes method for tagging words in a name with name-part tags based on provided reference arrays.
     /// This converts array of words into array of <see cref="int"/> that can be passed to HMM.
-    /// For example, 'Mr.' might be tagged as <see cref="Tag.Prefix"/>.
+    /// For example, 'Mr.' might be tagged as <see cref="NameTag.Prefix"/>.
     /// </summary>
     public interface ITagger
     {
         /// <summary>
-        /// Creates array of <see cref="int"/> representing underlying value of <see cref="Tag"/>
+        /// Creates array of <see cref="int"/> representing underlying value of <see cref="NameTag"/>
         /// corresponding to words in input array.  For convenience so that returned value can be passed
         /// directly to HMM.
         /// Input should already be split, trimmed, cased, and preprocessed.

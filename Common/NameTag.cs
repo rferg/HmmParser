@@ -3,7 +3,7 @@
     /// <summary>
     /// Name-part tags that apply to words in a name and are the inputs to the HMM.
     /// </summary>
-    public enum Tag
+    public enum NameTag
     {
         Unknown = 0,
         Prefix = 1,

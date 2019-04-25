@@ -14,7 +14,7 @@ namespace Common
         private string[] OrgIndicators;
 
         /// <summary>
-        /// Initializes an instance of <see cref="Tagger"/>
+        /// Initializes an instance of <see cref="NameTagger"/>
         /// </summary>
         public IndividualChecker() : this(new ReferenceLoader())
         {

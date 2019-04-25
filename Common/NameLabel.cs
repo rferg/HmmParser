@@ -3,7 +3,7 @@
     /// <summary>
     /// Corresponds to properties of <see cref="Name"/>
     /// </summary>
-    public enum Label
+    public enum NameLabel
     {
         Prefix = 0,
         FirstName = 1,

@@ -2,7 +2,7 @@
 
 namespace TrainApp
 {
-    internal class TrainingSample
+    internal class NameTrainingSample
     {
         [Name("Input")]
         public string Input { get; set; }

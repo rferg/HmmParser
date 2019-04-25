@@ -16,8 +16,8 @@ namespace TrainApp
         public ModelTrainer()
         {
             HMM = new HiddenMarkovModel(
-                new Forward(Enum.GetValues(typeof(Label)).Length),
-                Enum.GetValues(typeof(Tag)).Length);
+                new Forward(Enum.GetValues(typeof(NameLabel)).Length),
+                Enum.GetValues(typeof(NameTag)).Length);
             HMM.Algorithm = HiddenMarkovModelAlgorithm.Viterbi;
 
             Teacher = new MaximumLikelihoodLearning(HMM);

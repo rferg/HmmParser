@@ -60,5 +60,15 @@ namespace Common.Tests
             string[] expected = new string[0];
             Assert.Equal(expected, GetFormattedWords(input));
         }
+
+        [Fact]
+        public void GetFormattedWords_ShouldSplitOnProvidedCharsAndWhitespace()
+        {
+            string input = @"a b,c-d, e f
+                                g";
+            string[] expected = new string[7] { "a", "b", "c", "d", "e", "f", "g" };
+            char[] splitChars = new char[2] { ',', '-' };
+            Assert.Equal(expected, GetFormattedWords(input, splitChars));
+        }
     }
 }

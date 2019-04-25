@@ -6,7 +6,7 @@ using System.IO;
 namespace Common
 {
     /// <summary>
-    /// Retrieves reference arrays for <see cref="Tagger"/>
+    /// Retrieves reference arrays for <see cref="ITagger"/>
     /// Implements <see cref="IReferenceLoader"/>
     /// </summary>
     public class ReferenceLoader : IReferenceLoader
@@ -50,6 +50,26 @@ namespace Common
         public string[] GetSurnamePrefixes()
         {
             return GetReferenceArray("Surnameprefixes.csv");
+        }
+
+        public string[] GetStreetTypes()
+        {
+            return GetReferenceArray("StreetTypes.csv");
+        }
+
+        public string[] GetUnitTypes()
+        {
+            return GetReferenceArray("UnitTypes.csv");
+        }
+
+        public string[] GetBoxes()
+        {
+            return GetReferenceArray("Boxes.csv");
+        }
+
+        public string[] GetUSStates()
+        {
+            return GetReferenceArray("States.csv");
         }
 
         private string[] GetReferenceArray(string fileName)

@@ -8,16 +8,16 @@ using Xunit;
 
 namespace HmmNameParser.Tests
 {
-    public class ParserTest
+    public class NameParserTest
     {
-        private Parser Parser;
+        private NameParser Parser;
         private Mock<ITagger> TaggerMock;
         private Mock<IModelLoader> ModelLoaderMock;
         private Mock<IHiddenMarkovModelWrapper> HMMMock;
         private Mock<INameFormatter> FormatterMock;
         private Mock<IIndividualChecker> IndividualCheckerMock;
 
-        public ParserTest()
+        public NameParserTest()
         {
             TaggerMock = new Mock<ITagger>();
             TaggerMock.SetReturnsDefault(new int[0]);
@@ -33,7 +33,7 @@ namespace HmmNameParser.Tests
             IndividualCheckerMock = new Mock<IIndividualChecker>();
             IndividualCheckerMock.SetReturnsDefault(true);
 
-            Parser = new Parser(
+            Parser = new NameParser(
                 TaggerMock.Object,
                 ModelLoaderMock.Object,
                 FormatterMock.Object,
@@ -51,7 +51,7 @@ namespace HmmNameParser.Tests
         [Fact]
         public void Parse_ShouldThrowIfGetsInvalidLabelFromHMM()
         {
-            int invalidLabelValue = Enum.GetValues(typeof(Label))
+            int invalidLabelValue = Enum.GetValues(typeof(NameLabel))
                 .Cast<int>().Max() + 1;
             HMMMock.Setup(m => m.Decide(It.IsAny<int[]>()))
                 .Returns(new int[1] { invalidLabelValue });
@@ -112,7 +112,7 @@ namespace HmmNameParser.Tests
                 yield return new object[]
                 {
                     "Mr",
-                    new int[1] { (int)Label.Prefix },
+                    new int[1] { (int)NameLabel.Prefix },
                     new Name()
                     {
                         Prefix = "Mr"
@@ -122,7 +122,7 @@ namespace HmmNameParser.Tests
                 yield return new object[]
                 {
                     "Mr John Smith",
-                    new int[3] { (int)Label.Prefix, (int)Label.FirstName, (int)Label.LastName },
+                    new int[3] { (int)NameLabel.Prefix, (int)NameLabel.FirstName, (int)NameLabel.LastName },
                     new Name()
                     {
                         Prefix = "Mr",
@@ -134,7 +134,7 @@ namespace HmmNameParser.Tests
                 yield return new object[]
                 {
                     "Lt. Col. John Smith",
-                    new int[4] { (int)Label.Prefix, (int)Label.Prefix, (int)Label.FirstName, (int)Label.LastName },
+                    new int[4] { (int)NameLabel.Prefix, (int)NameLabel.Prefix, (int)NameLabel.FirstName, (int)NameLabel.LastName },
                     new Name()
                     {
                         Prefix = "Lt. Col.",
@@ -148,13 +148,13 @@ namespace HmmNameParser.Tests
                     "Lt. Col. John J. Smith Jr. (Ret.)",
                     new int[7]
                     {
-                        (int)Label.Prefix,
-                        (int)Label.Prefix,
-                        (int)Label.FirstName,
-                        (int)Label.MiddleName,
-                        (int)Label.LastName,
-                        (int)Label.Suffix,
-                        (int)Label.Suffix
+                        (int)NameLabel.Prefix,
+                        (int)NameLabel.Prefix,
+                        (int)NameLabel.FirstName,
+                        (int)NameLabel.MiddleName,
+                        (int)NameLabel.LastName,
+                        (int)NameLabel.Suffix,
+                        (int)NameLabel.Suffix
                     },
                     new Name()
                     {
@@ -171,13 +171,13 @@ namespace HmmNameParser.Tests
                     " lT. col. JOHN j. SMiTh Jr. (ReT.) ",
                     new int[7]
                     {
-                        (int)Label.Prefix,
-                        (int)Label.Prefix,
-                        (int)Label.FirstName,
-                        (int)Label.MiddleName,
-                        (int)Label.LastName,
-                        (int)Label.Suffix,
-                        (int)Label.Suffix
+                        (int)NameLabel.Prefix,
+                        (int)NameLabel.Prefix,
+                        (int)NameLabel.FirstName,
+                        (int)NameLabel.MiddleName,
+                        (int)NameLabel.LastName,
+                        (int)NameLabel.Suffix,
+                        (int)NameLabel.Suffix
                     },
                     new Name()
                     {
