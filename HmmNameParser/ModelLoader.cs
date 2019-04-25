@@ -10,17 +10,19 @@ namespace HmmNameParser
 {
     /// <summary>
     /// Loads serialized model.  Implements <see cref="IModelLoader"/>.
+    /// Model .bin file name should be same as name of <see cref="ParserType"/>.
     /// </summary>
-    internal class ModelLoader : IModelLoader
+    internal class ModelLoader<ParserType> : IModelLoader
     {
         private IAssemblyWrapper Assembly;
-        private const string HMM_FILENAME = "hmm.bin";
+        private string ModelFileName;
 
         /// <summary>
         /// Creates instance of <see cref="ModelLoader"/>.
         /// </summary>
         public ModelLoader() : this(new AssemblyWrapper())
         {
+            ModelFileName = $"{typeof(ParserType).Name}.bin";
         }
 
         internal ModelLoader(IAssemblyWrapper assembly)
@@ -37,11 +39,11 @@ namespace HmmNameParser
         public IHiddenMarkovModelWrapper LoadHMM()
         {
             string resourceName = Assembly.GetManifestResourceNames()
-                .SingleOrDefault(name => name.EndsWith(HMM_FILENAME));
+                .SingleOrDefault(name => name.EndsWith(ModelFileName));
 
             if (string.IsNullOrEmpty(resourceName))
             {
-                throw new Exception($"Could not find resource with name {HMM_FILENAME}.");
+                throw new Exception($"Could not find resource with name {ModelFileName}.");
             }
 
             HiddenMarkovModel model = null;

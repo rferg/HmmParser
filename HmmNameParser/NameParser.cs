@@ -19,7 +19,10 @@ namespace HmmNameParser
         /// <summary>
         /// Initializes <see cref="NameParser"/>.
         /// </summary>
-        public NameParser() : this(new NameTagger(), new ModelLoader(), new NameFormatter(), new IndividualChecker())
+        public NameParser() : this(
+            new NameTagger(),
+            new ModelLoader<NameParser>(),
+            new NameFormatter(), new IndividualChecker())
         {            
         }
 

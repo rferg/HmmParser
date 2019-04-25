@@ -8,7 +8,7 @@ namespace HmmNameParser.Tests
 {
     public class ModelLoaderTest
     {
-        private ModelLoader Loader;
+        private ModelLoader<NameParser> Loader;
         private Mock<IAssemblyWrapper> AssemblyMock;
 
         public ModelLoaderTest()
@@ -19,7 +19,7 @@ namespace HmmNameParser.Tests
             AssemblyMock.Setup(a => a.GetManifestResourceStream(It.IsAny<string>()))
                 .Returns(new MemoryStream());
 
-            Loader = new ModelLoader(AssemblyMock.Object);
+            Loader = new ModelLoader<NameParser>(AssemblyMock.Object);
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace HmmNameParser.Tests
         public void GetAny_ThrowsIfResourceIsEmpty()
         {
             AssemblyMock.Setup(a =>
-                a.GetManifestResourceNames()).Returns(new string[1] { "hmm.bin" });
+                a.GetManifestResourceNames()).Returns(new string[1] { $"{typeof(NameParser).Name}.bin" });
             Assert.ThrowsAny<Exception>(() => Loader.LoadHMM());
         }
     }
