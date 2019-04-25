@@ -36,5 +36,11 @@
         /// </summary>
         /// <returns></returns>
         string[] GetOrgIndicators();
+
+        /// <summary>
+        /// Gets reference array for surname prefixes, e.g., 'Van' or 'De'
+        /// </summary>
+        /// <returns></returns>
+        string[] GetSurnamePrefixes();
     }
 }

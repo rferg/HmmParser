@@ -46,12 +46,12 @@ namespace HmmNameParser.Validation
                 },
                 new object[]
                 {
-                    "John Smith, Jr.",
+                    "John Smith IV",
                     new Name()
                     {
                         FirstName = "John",
                         LastName = "Smith",
-                        Suffix = "Jr."
+                        Suffix = "IV"
                     }
                 },
                 new object[]
@@ -67,25 +67,25 @@ namespace HmmNameParser.Validation
                 },
                 new object[]
                 {
-                    "John D. Smith, Jr.",
+                    "John D. Smith Sr.",
                     new Name()
                     {
                         FirstName = "John",
                         MiddleName = "D.",
                         LastName = "Smith",
-                        Suffix = "Jr."
+                        Suffix = "Sr."
                     }
                 },
                 new object[]
                 {
-                    "Rev. John D. Smith, Jr.",
+                    "Rev. John D. Smith III",
                     new Name()
                     {
                         Prefix = "Rev.",
                         FirstName = "John",
                         MiddleName = "D.",
                         LastName = "Smith",
-                        Suffix = "Jr."
+                        Suffix = "III"
                     }
                 },
                 new object[]
@@ -109,10 +109,55 @@ namespace HmmNameParser.Validation
                 },
                 new object[]
                 {
+                    "Senator John McCain",
+                    new Name()
+                    {
+                        Prefix = "Senator",
+                        FirstName = "John",
+                        LastName = "McCain"
+                    }
+                },
+                new object[]
+                {
+                    "Friends of John McCain",
+                    new Name()
+                    {
+                        LastName = "Friends Of John McCain"
+                    }
+                },
+                new object[]
+                {
+                    "National Association Of Broadcasters PAC",
+                    new Name()
+                    {
+                        LastName = "National Association Of Broadcasters Pac"
+                    }
+                },
+                new object[]
+                {
                     "A Corporation Inc.",
                     new Name()
                     {
                         LastName = "A Corporation Inc."
+                    }
+                },
+                new object[]
+                {
+                    "Dr. Robert Van de Graaff",
+                    new Name()
+                    {
+                        Prefix = "Dr.",
+                        FirstName = "Robert",
+                        LastName = "Van De Graaff"
+                    }
+                },
+                new object[]
+                {
+                    "Oscar De La Hoya",
+                    new Name()
+                    {
+                        FirstName = "Oscar",
+                        LastName = "De La Hoya"
                     }
                 }
             };

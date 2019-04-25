@@ -9,12 +9,12 @@ using Xunit;
 
 namespace Common.Tests
 {
-    public class TaggerReferenceLoaderTest
+    public class ReferenceLoaderTest
     {
         private ReferenceLoader Loader;
         private Mock<IAssemblyWrapper> AssemblyMock;
 
-        public TaggerReferenceLoaderTest()
+        public ReferenceLoaderTest()
         {
             AssemblyMock = new Mock<IAssemblyWrapper>();
             AssemblyMock.Setup(a => a.GetManifestResourceNames())
@@ -90,6 +90,17 @@ namespace Common.Tests
             SetUpAssemblyMock(fileName, refString);
 
             Assert.Equal(expected, Loader.GetSuffixes());
+        }
+
+        [Fact]
+        public void GetSurnamePrefixes_ReturnsReferenceArray()
+        {
+            string refString = "a,b,c";
+            string[] expected = refString.Split(',');
+            string fileName = "Surnameprefixes.csv";
+            SetUpAssemblyMock(fileName, refString);
+
+            Assert.Equal(expected, Loader.GetSurnamePrefixes());
         }
     }
 }

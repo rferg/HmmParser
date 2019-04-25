@@ -9,6 +9,7 @@
         Prefix = 1,
         GivenName = 2,
         Surname = 3,
-        Suffix = 4
+        Suffix = 4,
+        SurnamePrefix = 5
     }
 }

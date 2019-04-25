@@ -47,6 +47,11 @@ namespace Common
             return GetReferenceArray("OrgIndicators.csv");
         }
 
+        public string[] GetSurnamePrefixes()
+        {
+            return GetReferenceArray("Surnameprefixes.csv");
+        }
+
         private string[] GetReferenceArray(string fileName)
         {
             string resourceName = Assembly.GetManifestResourceNames()

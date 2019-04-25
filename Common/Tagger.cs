@@ -14,6 +14,7 @@ namespace Common
         private string[] GivenNames;
         private string[] Surnames;
         private string[] Suffixes;
+        private string[] SurnamePrefixes;
 
         /// <summary>
         /// Initializes an instance of <see cref="Tagger"/>
@@ -28,6 +29,7 @@ namespace Common
             GivenNames = referenceLoader.GetGivenNames();
             Surnames = referenceLoader.GetSurnames();
             Suffixes = referenceLoader.GetSuffixes();
+            SurnamePrefixes = referenceLoader.GetSurnamePrefixes();
         }
 
         /// <summary>
@@ -45,6 +47,11 @@ namespace Common
 
         private Tag TagWord(string word)
         {
+            if (SurnamePrefixes.Contains(word))
+            {
+                return Tag.SurnamePrefix;
+            }
+
             if (Prefixes.Contains(word))
             {
                 return Tag.Prefix;

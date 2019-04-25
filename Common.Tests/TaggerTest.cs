@@ -64,7 +64,9 @@ namespace Common.Tests
 
             private void SetUpReferences()
             {
-                string[] prefixes = new string[3] { "mr", "mrs", "p1" };
+                string[] surnamePrefixes = new string[3] { "van", "de", "p0" };
+                LoaderMock.Setup(f => f.GetSurnamePrefixes()).Returns(surnamePrefixes);
+                string[] prefixes = new string[4] { "mr", "mrs", "p1", "p0" };
                 LoaderMock.Setup(f => f.GetPrefixes()).Returns(prefixes);
                 string[] suffixes = new string[3] { "jr", "p1", "p2" };
                 LoaderMock.Setup(f => f.GetSuffixes()).Returns(suffixes);
@@ -75,6 +77,7 @@ namespace Common.Tests
             }
 
             [Theory]
+            [InlineData("van", Tag.SurnamePrefix)]
             [InlineData("mr", Tag.Prefix)]
             [InlineData("jr", Tag.Suffix)]
             [InlineData("john", Tag.GivenName)]
@@ -86,6 +89,7 @@ namespace Common.Tests
             }
 
             [Theory]
+            [InlineData("p0", Tag.SurnamePrefix)]
             [InlineData("p1", Tag.Prefix)]
             [InlineData("p2", Tag.Suffix)]
             [InlineData("p3", Tag.Surname)]
