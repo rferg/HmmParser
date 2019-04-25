@@ -15,7 +15,7 @@ namespace HmmNameParser.Validation
         }
 
         [Theory]
-        [ClassData(typeof(ValidationData))]
+        [ClassData(typeof(NameValidationData))]
         public void ParserValidation(string input, Name output)
         {
             Assert.Equal(output, Parser.Parse(input), new NameComparer());

@@ -44,6 +44,7 @@
     <Compile Include="Address.cs" />
     <Compile Include="AddressLabel.cs" />
     <Compile Include="AddressTag.cs" />
+    <Compile Include="AddressTagger.cs" />
     <Compile Include="AssemblyWrapper.cs" />
     <Compile Include="IAssemblyWrapper.cs" />
     <Compile Include="IIndividualChecker.cs" />

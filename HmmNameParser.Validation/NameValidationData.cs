@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HmmNameParser.Validation
 {
-    internal class ValidationData : IEnumerable<object[]>
+    internal class NameValidationData : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {

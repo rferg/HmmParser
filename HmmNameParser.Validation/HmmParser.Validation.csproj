@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NameComparer.cs" />
-    <Compile Include="ValidationData.cs" />
+    <Compile Include="NameValidationData.cs" />
     <Compile Include="ValidationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

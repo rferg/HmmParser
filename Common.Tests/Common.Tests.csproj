@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressTaggerTest.cs" />
     <Compile Include="IndividualCheckerTest.cs" />
     <Compile Include="PreprocessingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -17,7 +17,7 @@ namespace Common
         private string[] SurnamePrefixes;
 
         /// <summary>
-        /// Initializes an instance of <see cref="NameTagger"/>
+        /// Creates instance of <see cref="NameTagger"/>
         /// </summary>
         public NameTagger() : this(new ReferenceLoader())
         {
