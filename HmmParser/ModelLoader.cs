@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace HmmNameParser
+namespace HmmParser
 {
     /// <summary>
     /// Loads serialized model.  Implements <see cref="IModelLoader"/>.

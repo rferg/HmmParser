@@ -1,7 +1,7 @@
 ﻿using Common;
 using System.Collections.Generic;
 
-namespace HmmNameParser.Validation
+namespace HmmParser.Validation
 {
     internal class NameComparer : IEqualityComparer<Name>
     {

@@ -1,4 +1,4 @@
-﻿namespace HmmNameParser
+﻿namespace HmmParser
 {
     public interface IHiddenMarkovModelWrapper
     {

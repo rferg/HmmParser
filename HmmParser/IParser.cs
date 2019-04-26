@@ -1,4 +1,4 @@
-﻿namespace HmmNameParser
+﻿namespace HmmParser
 {
     /// <summary>
     /// Provides method for parsing

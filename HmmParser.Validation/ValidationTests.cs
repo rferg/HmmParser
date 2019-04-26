@@ -2,7 +2,7 @@
 using System;
 using Xunit;
 
-namespace HmmNameParser.Validation
+namespace HmmParser.Validation
 {
     
     public class ValidationTests

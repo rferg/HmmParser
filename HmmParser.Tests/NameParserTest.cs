@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace HmmNameParser.Tests
+namespace HmmParser.Tests
 {
     public class NameParserTest
     {

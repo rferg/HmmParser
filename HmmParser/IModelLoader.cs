@@ -1,6 +1,6 @@
 ﻿using Accord.Statistics.Models.Markov;
 
-namespace HmmNameParser
+namespace HmmParser
 {
     /// <summary>
     /// Loads serialized model.

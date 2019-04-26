@@ -10,8 +10,8 @@
     <ProjectGuid>{DC7887F4-4F07-4DA5-8A4D-6E87E45F16D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HmmNameParser.Tests</RootNamespace>
-    <AssemblyName>HmmNameParser.Tests</AssemblyName>
+    <RootNamespace>HmmParser.Tests</RootNamespace>
+    <AssemblyName>HmmParser.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -93,7 +93,7 @@
       <Project>{473d19c8-cabe-41a1-b210-f096bf1dabdd}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HmmNameParser\HmmParser.csproj">
+    <ProjectReference Include="..\HmmParser\HmmParser.csproj">
       <Project>{0e873303-8e6f-4c48-a94e-3e35895eb878}</Project>
       <Name>HmmParser</Name>
     </ProjectReference>

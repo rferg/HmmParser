@@ -1,7 +1,7 @@
 ﻿using Common;
 using System.Collections.Generic;
 
-namespace HmmNameParser.Tests
+namespace HmmParser.Validation
 {
     public class AddressComparer : IEqualityComparer<Address>
     {

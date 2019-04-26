@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmmParser", "HmmNameParser\HmmParser.csproj", "{0E873303-8E6F-4C48-A94E-3E35895EB878}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmmParser", "HmmParser\HmmParser.csproj", "{0E873303-8E6F-4C48-A94E-3E35895EB878}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{473D19C8-CABE-41A1-B210-F096BF1DABDD}"
 EndProject
@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainApp", "TrainApp\TrainA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Tests", "Common.Tests\Common.Tests.csproj", "{B64820D4-0305-4ABA-B12B-FC458EE8DDD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmmParser.Tests", "HmmNameParser.Tests\HmmParser.Tests.csproj", "{DC7887F4-4F07-4DA5-8A4D-6E87E45F16D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmmParser.Tests", "HmmParser.Tests\HmmParser.Tests.csproj", "{DC7887F4-4F07-4DA5-8A4D-6E87E45F16D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmmParser.Validation", "HmmNameParser.Validation\HmmParser.Validation.csproj", "{D38ED062-EF6F-460B-83A3-A030D8CF73AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmmParser.Validation", "HmmParser.Validation\HmmParser.Validation.csproj", "{D38ED062-EF6F-460B-83A3-A030D8CF73AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace HmmNameParser
+﻿namespace HmmParser
 {
     /// <summary>
     /// Provides methods for formatting <see cref="string"/>s in parsed <typeparamref name="T"/>

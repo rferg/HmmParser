@@ -10,8 +10,8 @@
     <ProjectGuid>{D38ED062-EF6F-460B-83A3-A030D8CF73AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HmmNameParser.Validation</RootNamespace>
-    <AssemblyName>HmmNameParser.Validation</AssemblyName>
+    <RootNamespace>HmmParser.Validation</RootNamespace>
+    <AssemblyName>HmmParser.Validation</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -75,7 +75,7 @@
       <Project>{473D19C8-CABE-41A1-B210-F096BF1DABDD}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HmmNameParser\HmmParser.csproj">
+    <ProjectReference Include="..\HmmParser\HmmParser.csproj">
       <Project>{0e873303-8e6f-4c48-a94e-3e35895eb878}</Project>
       <Name>HmmParser</Name>
     </ProjectReference>

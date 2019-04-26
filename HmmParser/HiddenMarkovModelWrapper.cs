@@ -1,6 +1,6 @@
 ﻿using Accord.Statistics.Models.Markov;
 
-namespace HmmNameParser
+namespace HmmParser
 {
     /// <summary>
     /// A wrapper class for <see cref="Accord.Statistics.Models.Markov.HiddenMarkovModel"/>

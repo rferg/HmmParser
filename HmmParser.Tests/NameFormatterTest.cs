@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace HmmNameParser.Tests
+namespace HmmParser.Tests
 {
     public class NameFormatterTest
     {

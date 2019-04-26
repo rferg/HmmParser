@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace HmmNameParser.Validation
+namespace HmmParser.Validation
 {
     internal class AddressValidationData : IEnumerable<object[]>
     {

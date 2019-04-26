@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace HmmNameParser
+namespace HmmParser
 {
     /// <summary>
     /// Implementation of <see cref="IFormatter{Address}"/> for addresses

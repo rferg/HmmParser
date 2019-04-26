@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
-namespace HmmNameParser.Tests
+namespace HmmParser.Tests
 {
     public class AddressFormatterTest
     {

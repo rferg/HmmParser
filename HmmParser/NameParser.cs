@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace HmmNameParser
+namespace HmmParser
 {
     /// <summary>
     /// Provides method for parsing full name <see cref="string"/> into <see cref="Name"/> class.

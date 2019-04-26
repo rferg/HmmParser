@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using Xunit;
 
-namespace HmmNameParser.Tests
+namespace HmmParser.Tests
 {
     public class ModelLoaderTest
     {

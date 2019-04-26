@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Common;
 
-namespace HmmNameParser
+namespace HmmParser
 {
     /// <summary>
     /// Implementation of <see cref="IFormatter{Name}"/> for names

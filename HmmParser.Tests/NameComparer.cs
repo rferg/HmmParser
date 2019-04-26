@@ -1,7 +1,7 @@
 ﻿using Common;
 using System.Collections.Generic;
 
-namespace HmmNameParser.Tests
+namespace HmmParser.Tests
 {
     internal class NameComparer : IEqualityComparer<Name>
     {

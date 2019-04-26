@@ -1,7 +1,7 @@
 ﻿using Common;
 using System;
 
-namespace HmmNameParser
+namespace HmmParser
 {
     /// <summary>
     /// Provides method for parsing full address <see cref="string"/> into <see cref="Address"/> class.
