@@ -19,6 +19,8 @@ namespace Common
         private string[] UnitTypes;
         private string[] Boxes;
         private string[] States;
+        private string[] CityIndicators;
+        private string[] Directions;
 
         /// <summary>
         /// Creates instance of <see cref="AddressTagger"/>
@@ -33,6 +35,8 @@ namespace Common
             UnitTypes = referenceLoader.GetUnitTypes();
             Boxes = referenceLoader.GetBoxes();
             States = referenceLoader.GetUSStates();
+            CityIndicators = referenceLoader.GetCityIndicators();
+            Directions = referenceLoader.GetDirections();
         }
 
         /// <summary>
@@ -60,6 +64,11 @@ namespace Common
                 return AddressTag.Box;
             }
 
+            if (Directions.Contains(word))
+            {
+                return AddressTag.Direction;
+            }
+
             if (States.Contains(word))
             {
                 return AddressTag.State;
@@ -73,6 +82,11 @@ namespace Common
             if (StreetTypes.Contains(word))
             {
                 return AddressTag.StreetType;
+            }
+
+            if (CityIndicators.Contains(word))
+            {
+                return AddressTag.CityIndicator;
             }
 
             return AddressTag.Unknown;

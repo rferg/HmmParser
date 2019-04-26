@@ -16,6 +16,8 @@ namespace Common
         StreetType = 2,
         UnitType = 3,
         Box = 4,
-        State = 5
+        State = 5,
+        CityIndicator = 6,
+        Direction = 7
     }
 }

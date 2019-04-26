@@ -66,5 +66,17 @@
         /// </summary>
         /// <returns></returns>
         string[] GetUSStates();
+
+        /// <summary>
+        /// Gets reference array for words that indicate city
+        /// </summary>
+        /// <returns></returns>
+        string[] GetCityIndicators();
+
+        /// <summary>
+        /// Gets reference array for direction words, e.g. NW
+        /// </summary>
+        /// <returns></returns>
+        string[] GetDirections();
     }
 }

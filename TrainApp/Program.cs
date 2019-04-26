@@ -49,13 +49,13 @@ namespace TrainApp
                         HiddenMarkovModel hmm = Serializer.Load<HiddenMarkovModel>(modelPath);
                         Test(hmm, target);
                     }
-                    //else if (key == ConsoleKey.P)
-                    //{
-                    //    string modelPath =
-                    //        GetFilePath(REQUIRED_MODEL_EXTENSION, "Please enter path to your model file:");
-                    //    HiddenMarkovModel hmm = Serializer.Load<HiddenMarkovModel>(modelPath);
-                    //    ParseFromConsole(hmm);
-                    //}
+                    else if (key == ConsoleKey.P)
+                    {
+                        string modelPath =
+                            GetFilePath(REQUIRED_MODEL_EXTENSION, "Please enter path to your model file:");
+                        HiddenMarkovModel hmm = Serializer.Load<HiddenMarkovModel>(modelPath);
+                        ParseFromConsole(hmm, target);
+                    }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -97,7 +97,7 @@ namespace TrainApp
             Console.WriteLine("What do you want to do?");
             Console.WriteLine(" N: train a new model");
             Console.WriteLine(" E: test an existing model");
-            //Console.WriteLine(" P: use an existing model to parse names in the console");
+            Console.WriteLine(" P: use an existing model to parse in the console");
             Console.WriteLine("Enter Option:");
             return Console.ReadKey().Key;
         }
@@ -154,9 +154,67 @@ namespace TrainApp
             Console.WriteLine($"    Average Accuracy: {results.AverageAccuracy:0.###}");
         }
 
-        static void ParseFromConsole(HiddenMarkovModel hmm)
+        static void ParseFromConsole(HiddenMarkovModel hmm, ParseTarget target)
         {
-            // TODO
+            ConsoleColor defaultColor = Console.ForegroundColor;
+            ITagger tagger;
+            char[] splitChars = null;
+            if (target == ParseTarget.Address)
+            {
+                tagger = new AddressTagger();
+                splitChars = new char[1] { '-' };
+            }
+            else
+            {
+                tagger = new NameTagger();
+            }
+            while (true)
+            {
+                Console.WriteLine($"Enter the {target}:");
+                Console.ForegroundColor = ConsoleColor.Green;
+                string input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input)) { continue; }
+                string[] words = Preprocessing.GetFormattedWords(input, splitChars);
+                int[] tags = tagger.TagInput(words);
+                int[] result = hmm.Decide(tags);
+                DisplayParseResults(words, tags, result, target);
+                Console.ForegroundColor = defaultColor;
+            }
+        }
+
+        static void DisplayParseResults(
+            string[] words, int[] tags, int[] results, ParseTarget target)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Tags:");
+            for (int i = 0; i < words.Length; i++)
+            {
+                dynamic tag = tags[i];
+                if (target == ParseTarget.Address)
+                {
+                    tag = (AddressTag)tag;
+                }
+                else
+                {
+                    tag = (NameTag)tag;
+                }
+                Console.WriteLine($"    {words[i]}: {tag}");
+            }
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Parsed:");
+            for (int i = 0; i < words.Length; i++)
+            {
+                dynamic label = results[i];
+                if (target == ParseTarget.Address)
+                {
+                    label = (AddressLabel)label;
+                }
+                else
+                {
+                    label = (NameLabel)label;
+                }
+                Console.WriteLine($"    {words[i]}: {label}");
+            }
         }
 
         static Tuple<int[][], int[][]> GetTransformedData(string filePath, ParseTarget target)

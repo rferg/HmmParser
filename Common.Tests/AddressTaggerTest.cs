@@ -66,19 +66,25 @@ namespace Common.Tests
             {
                 string[] boxes = new string[3] { "123", "po", "p0" };
                 LoaderMock.Setup(f => f.GetBoxes()).Returns(boxes);
-                string[] states = new string[3] { "va", "p1", "p0" };
+                string[] directions = new string[3] { "nw", "p0", "p1" };
+                LoaderMock.Setup(f => f.GetDirections()).Returns(directions);
+                string[] states = new string[3] { "va", "p2", "p1" };
                 LoaderMock.Setup(f => f.GetUSStates()).Returns(states);
-                string[] unitTypes = new string[3] { "apt", "p1", "p2" };
+                string[] unitTypes = new string[3] { "apt", "p2", "p3" };
                 LoaderMock.Setup(f => f.GetUnitTypes()).Returns(unitTypes);
-                string[] streetTypes = new string[2] { "st", "p2" };
+                string[] streetTypes = new string[3] { "st", "p3", "p4" };
                 LoaderMock.Setup(f => f.GetStreetTypes()).Returns(streetTypes);
+                string[] cityIndicators = new string[2] { "city", "p4" };
+                LoaderMock.Setup(f => f.GetCityIndicators()).Returns(cityIndicators);
             }
 
             [Theory]
             [InlineData("po", AddressTag.Box)]
             [InlineData("va", AddressTag.State)]
             [InlineData("apt", AddressTag.UnitType)]
-            [InlineData("st", AddressTag.StreetType)]            
+            [InlineData("st", AddressTag.StreetType)]
+            [InlineData("city", AddressTag.CityIndicator)]
+            [InlineData("nw", AddressTag.Direction)]
             [InlineData("unknown", AddressTag.Unknown)]
             public void TagInput_ShouldTagWordIfContainedInReferenceArray(string word, AddressTag expectedTag)
             {
@@ -88,8 +94,10 @@ namespace Common.Tests
             [Theory]
             [InlineData("123", AddressTag.Number)]
             [InlineData("p0", AddressTag.Box)]
-            [InlineData("p1", AddressTag.State)]
-            [InlineData("p2", AddressTag.UnitType)]
+            [InlineData("p1", AddressTag.Direction)]
+            [InlineData("p2", AddressTag.State)]
+            [InlineData("p3", AddressTag.UnitType)]
+            [InlineData("p4", AddressTag.StreetType)]
             public void TagInput_ShouldHaveCorrectTagPriorities(string word, AddressTag expectedTag)
             {
                 Assert.Equal(expectedTag, (AddressTag)Tagger.TagInput(new string[1] { word }).First());

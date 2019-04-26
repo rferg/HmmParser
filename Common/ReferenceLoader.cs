@@ -72,6 +72,16 @@ namespace Common
             return GetReferenceArray("States.csv");
         }
 
+        public string[] GetCityIndicators()
+        {
+            return GetReferenceArray("CityIndicators.csv");
+        }
+
+        public string[] GetDirections()
+        {
+            return GetReferenceArray("Directions.csv");
+        }
+
         private string[] GetReferenceArray(string fileName)
         {
             string resourceName = Assembly.GetManifestResourceNames()
@@ -97,6 +107,6 @@ namespace Common
             }
 
             return line.Split(',');
-        }
+        }        
     }
 }

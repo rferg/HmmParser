@@ -146,5 +146,27 @@ namespace Common.Tests
 
             Assert.Equal(expected, Loader.GetUSStates());
         }
+
+        [Fact]
+        public void GetCityIndicators_ReturnsReferenceArray()
+        {
+            string refString = "a,b,c";
+            string[] expected = refString.Split(',');
+            string fileName = "CityIndicators.csv";
+            SetUpAssemblyMock(fileName, refString);
+
+            Assert.Equal(expected, Loader.GetCityIndicators());
+        }
+
+        [Fact]
+        public void GetDirections_ReturnsReferenceArray()
+        {
+            string refString = "a,b,c";
+            string[] expected = refString.Split(',');
+            string fileName = "Directions.csv";
+            SetUpAssemblyMock(fileName, refString);
+
+            Assert.Equal(expected, Loader.GetDirections());
+        }
     }
 }
