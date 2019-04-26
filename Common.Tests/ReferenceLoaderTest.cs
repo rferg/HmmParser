@@ -168,5 +168,16 @@ namespace Common.Tests
 
             Assert.Equal(expected, Loader.GetDirections());
         }
+
+        [Fact]
+        public void GetCommonStreetNames_ReturnsReferenceArray()
+        {
+            string refString = "a,b,c";
+            string[] expected = refString.Split(',');
+            string fileName = "CommonStreetNames.csv";
+            SetUpAssemblyMock(fileName, refString);
+
+            Assert.Equal(expected, Loader.GetCommonStreetNames());
+        }
     }
 }

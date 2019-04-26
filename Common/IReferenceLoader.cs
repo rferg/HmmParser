@@ -78,5 +78,11 @@
         /// </summary>
         /// <returns></returns>
         string[] GetDirections();
+
+        /// <summary>
+        /// Gets reference array of common US street names
+        /// </summary>
+        /// <returns></returns>
+        string[] GetCommonStreetNames();
     }
 }

@@ -82,6 +82,11 @@ namespace Common
             return GetReferenceArray("Directions.csv");
         }
 
+        public string[] GetCommonStreetNames()
+        {
+            return GetReferenceArray("CommonStreetNames.csv");
+        }
+
         private string[] GetReferenceArray(string fileName)
         {
             string resourceName = Assembly.GetManifestResourceNames()

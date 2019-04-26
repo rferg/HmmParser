@@ -21,6 +21,7 @@ namespace Common
         private string[] States;
         private string[] CityIndicators;
         private string[] Directions;
+        private string[] CommonStreetNames;
 
         /// <summary>
         /// Creates instance of <see cref="AddressTagger"/>
@@ -37,6 +38,7 @@ namespace Common
             States = referenceLoader.GetUSStates();
             CityIndicators = referenceLoader.GetCityIndicators();
             Directions = referenceLoader.GetDirections();
+            CommonStreetNames = referenceLoader.GetCommonStreetNames();
         }
 
         /// <summary>
@@ -87,6 +89,11 @@ namespace Common
             if (CityIndicators.Contains(word))
             {
                 return AddressTag.CityIndicator;
+            }
+
+            if (CommonStreetNames.Contains(word))
+            {
+                return AddressTag.CommonStreetName;
             }
 
             return AddressTag.Unknown;

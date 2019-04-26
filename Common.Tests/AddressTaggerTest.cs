@@ -74,8 +74,10 @@ namespace Common.Tests
                 LoaderMock.Setup(f => f.GetUnitTypes()).Returns(unitTypes);
                 string[] streetTypes = new string[3] { "st", "p3", "p4" };
                 LoaderMock.Setup(f => f.GetStreetTypes()).Returns(streetTypes);
-                string[] cityIndicators = new string[2] { "city", "p4" };
+                string[] cityIndicators = new string[3] { "city", "p4", "p5" };
                 LoaderMock.Setup(f => f.GetCityIndicators()).Returns(cityIndicators);
+                string[] streetNames = new string[2] { "main", "p5" };
+                LoaderMock.Setup(f => f.GetCommonStreetNames()).Returns(streetNames);
             }
 
             [Theory]
@@ -85,6 +87,7 @@ namespace Common.Tests
             [InlineData("st", AddressTag.StreetType)]
             [InlineData("city", AddressTag.CityIndicator)]
             [InlineData("nw", AddressTag.Direction)]
+            [InlineData("main", AddressTag.CommonStreetName)]
             [InlineData("unknown", AddressTag.Unknown)]
             public void TagInput_ShouldTagWordIfContainedInReferenceArray(string word, AddressTag expectedTag)
             {
@@ -98,6 +101,7 @@ namespace Common.Tests
             [InlineData("p2", AddressTag.State)]
             [InlineData("p3", AddressTag.UnitType)]
             [InlineData("p4", AddressTag.StreetType)]
+            [InlineData("p5", AddressTag.CityIndicator)]
             public void TagInput_ShouldHaveCorrectTagPriorities(string word, AddressTag expectedTag)
             {
                 Assert.Equal(expectedTag, (AddressTag)Tagger.TagInput(new string[1] { word }).First());

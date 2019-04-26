@@ -18,6 +18,7 @@ namespace Common
         Box = 4,
         State = 5,
         CityIndicator = 6,
-        Direction = 7
+        Direction = 7,
+        CommonStreetName = 8
     }
 }
