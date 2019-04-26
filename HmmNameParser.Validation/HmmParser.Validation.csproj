@@ -57,6 +57,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressComparer.cs" />
+    <Compile Include="AddressValidationData.cs" />
     <Compile Include="NameComparer.cs" />
     <Compile Include="NameValidationData.cs" />
     <Compile Include="ValidationTests.cs" />

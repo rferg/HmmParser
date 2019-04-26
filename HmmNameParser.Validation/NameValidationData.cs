@@ -162,7 +162,7 @@ namespace HmmNameParser.Validation
                 }
             };
 
-            for (int i = 0; i < data.Count(); i++)
+            for (int i = 0; i < data.Count; i++)
             {
                 yield return data[i];
             }

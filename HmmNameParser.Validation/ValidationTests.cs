@@ -7,18 +7,27 @@ namespace HmmNameParser.Validation
     
     public class ValidationTests
     {
-        private NameParser Parser;
+        private NameParser NameParser;
+        private AddressParser AddressParser;
 
         public ValidationTests()
         {
-            Parser = new NameParser();
+            NameParser = new NameParser();
+            AddressParser = new AddressParser();
         }
 
         [Theory]
         [ClassData(typeof(NameValidationData))]
-        public void ParserValidation(string input, Name output)
+        public void NameParserValidation(string input, Name output)
         {
-            Assert.Equal(output, Parser.Parse(input), new NameComparer());
+            Assert.Equal(output, NameParser.Parse(input), new NameComparer());
+        }
+
+        [Theory]
+        [ClassData(typeof(AddressValidationData))]
+        public void AddressParserValidation(string input, Address output)
+        {
+            Assert.Equal(output, AddressParser.Parse(input), new AddressComparer());
         }
     }
 }
