@@ -116,6 +116,12 @@ namespace Common.Tests
                     expectedIsNumber,
                     (AddressTag)Tagger.TagInput(new string[1] { numStr }).First() == AddressTag.Number);
             }
+
+            [Fact]
+            public void TagInput_ShouldTagAsUnitTypeIfContainsPoundSign()
+            {
+                Assert.Equal(AddressTag.UnitType, (AddressTag)Tagger.TagInput(new string[1] { "#123" }).First());
+            }
         }
 
     }

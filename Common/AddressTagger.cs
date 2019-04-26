@@ -74,7 +74,7 @@ namespace Common
                 return AddressTag.State;
             }
 
-            if (UnitTypes.Contains(word))
+            if (UnitTypes.Contains(word) || word.Contains('#'))
             {
                 return AddressTag.UnitType;
             }
