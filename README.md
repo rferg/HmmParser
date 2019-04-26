@@ -1,2 +1,2 @@
 # 🤔 HmmParser
-A Hidden Markov Model for parsing English names for humans into component parts.  It also does US postal addresses.
+An English name and US postal address parser based on Hidden Markov Models.
