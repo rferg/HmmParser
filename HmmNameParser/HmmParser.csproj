@@ -55,10 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressFormatter.cs" />
+    <Compile Include="AddressParser.cs" />
     <Compile Include="HiddenMarkovModelWrapper.cs" />
     <Compile Include="IHiddenMarkovModelWrapper.cs" />
     <Compile Include="IModelLoader.cs" />
-    <Compile Include="INameFormatter.cs" />
+    <Compile Include="IFormatter.cs" />
+    <Compile Include="IParser.cs" />
     <Compile Include="ModelLoader.cs" />
     <Compile Include="NameFormatter.cs" />
     <Compile Include="NameParser.cs" />

@@ -1,7 +1,5 @@
-﻿using Accord.Statistics.Models.Markov;
-using Common;
+﻿using Common;
 using System;
-using System.Globalization;
 using System.Linq;
 
 namespace HmmNameParser
@@ -9,11 +7,11 @@ namespace HmmNameParser
     /// <summary>
     /// Provides method for parsing full name <see cref="string"/> into <see cref="Name"/> class.
     /// </summary>
-    public class NameParser
+    public class NameParser : IParser<Name>
     {
         private IHiddenMarkovModelWrapper HMM;
         private ITagger Tagger;        
-        private INameFormatter Formatter;
+        private IFormatter<Name> Formatter;
         private IIndividualChecker IndividualChecker;
 
         /// <summary>
@@ -29,7 +27,7 @@ namespace HmmNameParser
         internal NameParser(
             ITagger tagger,
             IModelLoader modelLoader,
-            INameFormatter formatter,
+            IFormatter<Name> formatter,
             IIndividualChecker individualChecker)
         {
             Tagger = tagger;            
@@ -42,7 +40,7 @@ namespace HmmNameParser
         /// Parses <paramref name="name"/> into its component parts and returns <see cref="Name"/>.
         /// </summary>
         /// <param name="name">name <see cref="string"/> to parse</param>
-        /// <returns></returns>
+        /// <returns>parsed and formatted <see cref="Name"/></returns>
         public Name Parse(string name)
         {
             string[] words = Preprocessing.GetFormattedWords(name?.Trim() ?? "");

@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Common;
 
 namespace HmmNameParser
 {
     /// <summary>
-    /// Implementation of <see cref="INameFormatter"/>
+    /// Implementation of <see cref="IFormatter{Name}"/> for names
     /// </summary>
-    public class NameFormatter : INameFormatter
+    public class NameFormatter : IFormatter<Name>
     {
         private TextInfo TextInfo;
         private Regex RomanNumeralRegex;

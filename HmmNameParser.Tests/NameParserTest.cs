@@ -14,7 +14,7 @@ namespace HmmNameParser.Tests
         private Mock<ITagger> TaggerMock;
         private Mock<IModelLoader> ModelLoaderMock;
         private Mock<IHiddenMarkovModelWrapper> HMMMock;
-        private Mock<INameFormatter> FormatterMock;
+        private Mock<IFormatter<Name>> FormatterMock;
         private Mock<IIndividualChecker> IndividualCheckerMock;
 
         public NameParserTest()
@@ -27,7 +27,7 @@ namespace HmmNameParser.Tests
             ModelLoaderMock = new Mock<IModelLoader>();
             ModelLoaderMock.Setup(m => m.LoadHMM()).Returns(HMMMock.Object);
 
-            FormatterMock = new Mock<INameFormatter>();
+            FormatterMock = new Mock<IFormatter<Name>>();
             FormatterMock.Setup(f => f.Format(It.IsAny<Name>())).Returns<Name>(name => name);
 
             IndividualCheckerMock = new Mock<IIndividualChecker>();
@@ -67,7 +67,7 @@ namespace HmmNameParser.Tests
         {
             HMMMock.Setup(m => m.Decide(It.IsAny<int[]>()))
                 .Returns(labels);
-            Assert.Equal(expectedOutput, Parser.Parse(input), new NameComparer());
+            Assert.Equal(expectedOutput, Parser.Parse(input), new CaseInsensitiveNameComparer());
         }
 
         [Fact]
@@ -76,10 +76,10 @@ namespace HmmNameParser.Tests
             IndividualCheckerMock.Setup(m => m.IsIndividual(It.IsAny<string[]>())).Returns(false);
             string input = "A Corporation Inc.";
             Name expected = new Name() { LastName = input };
-            Assert.Equal(expected, Parser.Parse(input), new NameComparer());
+            Assert.Equal(expected, Parser.Parse(input), new CaseInsensitiveNameComparer());
         }
 
-        private class NameComparer : IEqualityComparer<Name>
+        private class CaseInsensitiveNameComparer : IEqualityComparer<Name>
         {
             public bool Equals(Name x, Name y)
             {
